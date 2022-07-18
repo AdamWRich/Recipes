@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@300;700&family=Inter:wght@100;300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <title>Recipe Share</title>
+</head>
+<body>
+    <header>
+        <h1>Edit Recipe!</h1>
+        <div class="subheader">
+            <h2>Fill in all fields below:</h2>
+            <div class="user_options">
+                <a href="/dashboard">back to recipes</a>
+                <a href="/logout">logout</a>
+            </div>
+        </div>
+    </header>
+    <section class="container">
+        <form action="/update_recipe/{{recipe.id}}" class="new_recipe_form" method="POST">
+            {% if messages %}
+                    <div class="validations">
+                            {% for message in messages %}
+                                <p class="validation">{{message}}</p>
+                            {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+            <input type="hidden" name="id" value="{{recipe.id}}">
+            <div class="recipe_item_1">
+                <label for="input">Recipe Name</label>
+                <input type="text" name="name" value="{{recipe.name}}">
+            </div>
+            <div class="recipe_item_2">
+                <label for="textarea">Description</label>
+                <textarea name="description" cols="50" rows="5" class="description">{{recipe.description}}</textarea>
+            </div>
+            <div class="recipe_item_3">
+                <label for="textarea">Instructions</label>
+                <textarea name="instructions" cols="50" rows="10">{{recipe.instructions}}</textarea>
+            </div>
+            <div class="recipe_item_4">
+                <label for="date">Date Cooked/Made</label>
+                <input type="date" name="made_on" value="{{recipe.made_on}}">
+            </div>
+            <div class="recipe_item_5">
+                <label for="input">Under 30 minutes?</label>
+                <div>
+                    {% if recipe.under_30 == "Yes": %}
+                    <input type="radio" name="under_30" value='Yes' checked="checked" id="yes">
+                    <label for="yes">Yes</label>
+                    <input type="radio" name="under_30" value='No' id="no">
+                    <label for="no">No</label>
+                    {% else: %}
+                    <input type="radio" name="under_30"  value='Yes' id="yes">
+                    <label for="yes">Yes</label>
+                    <input type="radio" name="under_30" value='No' checked="checked" id="no">
+                    <label for="no">No</label>
+                    {% endif %} 
+                </div>
+            </div>
+            <div class="recipe_item_6">
+                <input type="submit" class="button" value="Update Recipe">
+            </div>
+        </form>
+    </section>
+</body>
+</html>

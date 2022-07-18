@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@300;700&family=Inter:wght@100;300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <title>Recipe Share</title>
+</head>
+<body>
+    <header>
+        <h1>Add a New Recipe!</h1>
+        <div class="subheader">
+            <h2>Fill in all fields below:</h2>
+            <div class="user_options">
+                <a href="/dashboard">back to recipes</a>
+                <a href="/logout">logout</a>
+            </div>
+        </div>
+    </header>
+    <section class="container">
+        {% with messages = get_flashed_messages(category_filter=['recipe']) %}
+        <form action="/new_recipe" class="new_recipe_form" method="POST">
+            {% if messages %}
+                    <div class="validations">
+                            {% for message in messages %}
+                                <p class="validation">{{message}}</p>
+                            {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+            <div class="recipe_item_1">
+                <label for="input">Recipe Name</label>
+                <input required type="text" name="name">
+            </div>
+            <input type="hidden" name="creator" value="{{user.id}}">
+            <div class="recipe_item_2">
+                <label for="textarea">Description</label>
+                <textarea required name="description" cols="50" rows="5" class="description"></textarea>
+            </div>
+            <div class="recipe_item_3">
+                <label for="textarea">Instructions</label>
+                <textarea required name="instructions" cols="50" rows="10"></textarea>
+            </div>
+            <div class="recipe_item_4">
+                <label for="date">Date Cooked/Made</label>
+                <input required type="date" name="made_on">
+            </div>
+            <div class="recipe_item_5">
+                <label for="input">Under 30 minutes?</label>
+                <div>
+                    <input type="radio" name="under_30" value="Yes" id="yes">
+                    <label for="yes">Yes</label>
+                    <input type="radio" name="under_30" value="No" id="no">
+                    <label for="no">No</label>
+                </div>
+            </div>
+            <div class="recipe_item_6">
+                <input type="submit" class="button" value="Post">
+            </div>
+        </form>
+    </section>
+</body>
+</html>

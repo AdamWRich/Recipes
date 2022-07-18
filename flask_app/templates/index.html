@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@300;700&family=Inter:wght@100;300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <title>Recipe Share</title>
+</head>
+<body>
+    <header>
+        <h1>Recipes Share</h1>
+        <h2>A place to share your recipes!</h2>
+    </header>
+    <section class="container">
+        <div class="left">
+            <form action="/register" class="Register" method="POST">
+                <div class="form_title">
+                    <h2>Create an Account</h2>
+                    {% with messages = get_flashed_messages(category_filter=['registration']) %}
+                    {% if messages %}
+                    <div class="validations">
+                            {% for message in messages %}
+                                <p class="validation">{{message}}</p>
+                            {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+                </div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="form_item">
+                                <label for="input">First Name:</label>
+                                <input type="text" name="first_name">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form_item">
+                                <label for="input">Last Name:</label>
+                                <input type="text" name="last_name">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="form_item" id="email">
+                                <label for="input">Email:</label>
+                                <input type="text" name="email">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form_item">
+                                <label for="input">Password:</label>
+                                <input type="password" name="password">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form_item">
+                                <label for="input">Confirm Password:</label>
+                                <input type="password" name="confirm_password">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                    <input class="button" type="submit" value="Register">
+                </form>
+            </div>
+        <div class="right">
+            <form action="/login" class="login" method="POST">
+                <div class="form_title">
+                    <h2>Login</h2>
+                    {% with messages = get_flashed_messages(category_filter=['login']) %}
+                    {% if messages %}
+                    <div class="validations">
+                        {% for message in messages %}
+                        <p class="validation">{{message}}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+                </div>
+                <table>
+                    <tr>
+                        <td>
+                            <label for="input">Email:</label>
+                            <input required type="text" name="email">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="input">Password:</label>
+                            <input required type="password" name="password">
+                        </td>
+                    </tr>
+                </table>
+                <input class="button" type="submit" value="Login">
+            </form>
+        </div>
+    </section>
+</body>
+</html>
